@@ -74,75 +74,75 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => '17',
-                'title' => 'content_management_access',
-            ],
-            [
-                'id'    => '18',
-                'title' => 'content_category_create',
-            ],
-            [
-                'id'    => '19',
-                'title' => 'content_category_edit',
-            ],
-            [
-                'id'    => '20',
-                'title' => 'content_category_show',
-            ],
-            [
-                'id'    => '21',
-                'title' => 'content_category_delete',
-            ],
-            [
-                'id'    => '22',
-                'title' => 'content_category_access',
-            ],
-            [
-                'id'    => '23',
-                'title' => 'content_tag_create',
-            ],
-            [
-                'id'    => '24',
-                'title' => 'content_tag_edit',
-            ],
-            [
-                'id'    => '25',
-                'title' => 'content_tag_show',
-            ],
-            [
-                'id'    => '26',
-                'title' => 'content_tag_delete',
-            ],
-            [
-                'id'    => '27',
-                'title' => 'content_tag_access',
-            ],
-            [
-                'id'    => '28',
-                'title' => 'content_page_create',
-            ],
-            [
-                'id'    => '29',
-                'title' => 'content_page_edit',
-            ],
-            [
-                'id'    => '30',
-                'title' => 'content_page_show',
-            ],
-            [
-                'id'    => '31',
-                'title' => 'content_page_delete',
-            ],
-            [
-                'id'    => '32',
-                'title' => 'content_page_access',
-            ],
-            [
-                'id'    => '33',
                 'title' => 'audit_log_show',
             ],
             [
-                'id'    => '34',
+                'id'    => '18',
                 'title' => 'audit_log_access',
+            ],
+            [
+                'id'    => '19',
+                'title' => 'product_management_access',
+            ],
+            [
+                'id'    => '20',
+                'title' => 'product_category_create',
+            ],
+            [
+                'id'    => '21',
+                'title' => 'product_category_edit',
+            ],
+            [
+                'id'    => '22',
+                'title' => 'product_category_show',
+            ],
+            [
+                'id'    => '23',
+                'title' => 'product_category_delete',
+            ],
+            [
+                'id'    => '24',
+                'title' => 'product_category_access',
+            ],
+            [
+                'id'    => '25',
+                'title' => 'product_tag_create',
+            ],
+            [
+                'id'    => '26',
+                'title' => 'product_tag_edit',
+            ],
+            [
+                'id'    => '27',
+                'title' => 'product_tag_show',
+            ],
+            [
+                'id'    => '28',
+                'title' => 'product_tag_delete',
+            ],
+            [
+                'id'    => '29',
+                'title' => 'product_tag_access',
+            ],
+            [
+                'id'    => '30',
+                'title' => 'product_create',
+            ],
+            [
+                'id'    => '31',
+                'title' => 'product_edit',
+            ],
+            [
+                'id'    => '32',
+                'title' => 'product_show',
+            ],
+            [
+                'id'    => '33',
+                'title' => 'product_delete',
+            ],
+            [
+                'id'    => '34',
+                'title' => 'product_access',
             ],
         ];
 

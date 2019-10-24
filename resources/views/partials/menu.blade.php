@@ -67,42 +67,42 @@
                     </ul>
                 </li>
             @endcan
-            @can('content_management_access')
+            @can('product_management_access')
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link  nav-dropdown-toggle" href="#">
-                        <i class="fa-fw fas fa-book nav-icon">
+                        <i class="fa-fw fas fa-shopping-cart nav-icon">
 
                         </i>
-                        {{ trans('cruds.contentManagement.title') }}
+                        {{ trans('cruds.productManagement.title') }}
                     </a>
                     <ul class="nav-dropdown-items">
-                        @can('content_category_access')
+                        @can('product_category_access')
                             <li class="nav-item">
-                                <a href="{{ route("admin.content-categories.index") }}" class="nav-link {{ request()->is('admin/content-categories') || request()->is('admin/content-categories/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.product-categories.index") }}" class="nav-link {{ request()->is('admin/product-categories') || request()->is('admin/product-categories/*') ? 'active' : '' }}">
                                     <i class="fa-fw fas fa-folder nav-icon">
 
                                     </i>
-                                    {{ trans('cruds.contentCategory.title') }}
+                                    {{ trans('cruds.productCategory.title') }}
                                 </a>
                             </li>
                         @endcan
-                        @can('content_tag_access')
+                        @can('product_tag_access')
                             <li class="nav-item">
-                                <a href="{{ route("admin.content-tags.index") }}" class="nav-link {{ request()->is('admin/content-tags') || request()->is('admin/content-tags/*') ? 'active' : '' }}">
-                                    <i class="fa-fw fas fa-tags nav-icon">
+                                <a href="{{ route("admin.product-tags.index") }}" class="nav-link {{ request()->is('admin/product-tags') || request()->is('admin/product-tags/*') ? 'active' : '' }}">
+                                    <i class="fa-fw fas fa-folder nav-icon">
 
                                     </i>
-                                    {{ trans('cruds.contentTag.title') }}
+                                    {{ trans('cruds.productTag.title') }}
                                 </a>
                             </li>
                         @endcan
-                        @can('content_page_access')
+                        @can('product_access')
                             <li class="nav-item">
-                                <a href="{{ route("admin.content-pages.index") }}" class="nav-link {{ request()->is('admin/content-pages') || request()->is('admin/content-pages/*') ? 'active' : '' }}">
-                                    <i class="fa-fw fas fa-file nav-icon">
+                                <a href="{{ route("admin.products.index") }}" class="nav-link {{ request()->is('admin/products') || request()->is('admin/products/*') ? 'active' : '' }}">
+                                    <i class="fa-fw fas fa-shopping-cart nav-icon">
 
                                     </i>
-                                    {{ trans('cruds.contentPage.title') }}
+                                    {{ trans('cruds.product.title') }}
                                 </a>
                             </li>
                         @endcan

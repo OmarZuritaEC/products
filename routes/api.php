@@ -10,13 +10,14 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Users
     Route::apiResource('users', 'UsersApiController');
 
-    // Content Categories
-    Route::apiResource('content-categories', 'ContentCategoryApiController');
+    // Product Categories
+    Route::post('product-categories/media', 'ProductCategoryApiController@storeMedia')->name('product-categories.storeMedia');
+    Route::apiResource('product-categories', 'ProductCategoryApiController');
 
-    // Content Tags
-    Route::apiResource('content-tags', 'ContentTagApiController');
+    // Product Tags
+    Route::apiResource('product-tags', 'ProductTagApiController');
 
-    // Content Pages
-    Route::post('content-pages/media', 'ContentPageApiController@storeMedia')->name('content-pages.storeMedia');
-    Route::apiResource('content-pages', 'ContentPageApiController');
+    // Products
+    Route::post('products/media', 'ProductApiController@storeMedia')->name('products.storeMedia');
+    Route::apiResource('products', 'ProductApiController');
 });
