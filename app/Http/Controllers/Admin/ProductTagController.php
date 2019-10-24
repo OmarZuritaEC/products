@@ -10,16 +10,47 @@ use App\ProductTag;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductTagController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        abort_if(Gate::denies('product_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $query = ProductTag::query()->select(sprintf('%s.*', (new ProductTag)->table));
+            $table = Datatables::of($query);
 
-        $productTags = ProductTag::all();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
-        return view('admin.productTags.index', compact('productTags'));
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'product_tag_show';
+                $editGate      = 'product_tag_edit';
+                $deleteGate    = 'product_tag_delete';
+                $crudRoutePart = 'product-tags';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : "";
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : "";
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.productTags.index');
     }
 
     public function create()
