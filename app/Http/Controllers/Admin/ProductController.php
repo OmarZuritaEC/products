@@ -13,18 +13,84 @@ use App\ProductTag;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
-        abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if ($request->ajax()) {
+            $query = Product::with(['categories', 'tags', 'created_by'])->select(sprintf('%s.*', (new Product)->table));
+            $table = Datatables::of($query);
 
-        $products = Product::all();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
-        return view('admin.products.index', compact('products'));
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'product_show';
+                $editGate      = 'product_edit';
+                $deleteGate    = 'product_delete';
+                $crudRoutePart = 'products';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : "";
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : "";
+            });
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : "";
+            });
+            $table->editColumn('price', function ($row) {
+                return $row->price ? $row->price : "";
+            });
+            $table->editColumn('category', function ($row) {
+                $labels = [];
+
+                foreach ($row->categories as $category) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $category->name);
+                }
+
+                return implode(' ', $labels);
+            });
+            $table->editColumn('tag', function ($row) {
+                $labels = [];
+
+                foreach ($row->tags as $tag) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $tag->name);
+                }
+
+                return implode(' ', $labels);
+            });
+            $table->editColumn('photo', function ($row) {
+                if ($photo = $row->photo) {
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+                        $photo->url,
+                        $photo->thumbnail
+                    );
+                }
+
+                return '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'category', 'tag', 'photo']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.products.index');
     }
 
     public function create()
@@ -59,7 +125,7 @@ class ProductController extends Controller
 
         $tags = ProductTag::all()->pluck('name', 'id');
 
-        $product->load('categories', 'tags');
+        $product->load('categories', 'tags', 'created_by');
 
         return view('admin.products.edit', compact('categories', 'tags', 'product'));
     }
@@ -85,7 +151,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('categories', 'tags');
+        $product->load('categories', 'tags', 'created_by');
 
         return view('admin.products.show', compact('product'));
     }
